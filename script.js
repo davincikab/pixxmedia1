@@ -139,15 +139,15 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 const easing = t => t * (1 - t)
 
 if (window.DeviceOrientationEvent) {
-    // window.addEventListener('deviceorientation',handleOrientation)
+    window.addEventListener('deviceorientation',handleOrientation)
   }
   else {
     alert("Sorry, your browser doesn't support Device Orientation")
 }
 
+let prevCompassDir;
 function handleOrientation(event) {
     let compassdir;
-
     if (event.webkitCompassHeading) {
         // Apple works only with this, alpha doesn't work
         compassdir = event.webkitCompassHeading
@@ -156,6 +156,11 @@ function handleOrientation(event) {
         compassdir = event.alpha
     }
 
+    if(Math.abs(compassdir) == prevCompassDir) {
+        return;
+    }   
+
+    prevCompassDir = Math.abs(compassdir);
     if(map.isZooming() || map.isMoving()) {
         return;
     }
