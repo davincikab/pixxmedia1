@@ -92,6 +92,11 @@ map.on('load', () => {
 
         map.setCenter(userLocation);
 
+        let bearing = geolocate._heading || 0;
+        map.easeTo(bearing, {
+            duration:100
+        });
+
     });
 
     // toggle map style
@@ -134,7 +139,7 @@ window.addEventListener("deviceorientation", handleOrientation, true);
 const easing = t => t * (1 - t)
 
 if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation',handleOrientation)
+    // window.addEventListener('deviceorientation',handleOrientation)
   }
   else {
     alert("Sorry, your browser doesn't support Device Orientation")
@@ -165,10 +170,10 @@ function handleOrientation(event) {
 
     setTimeout((e) => {
 
-        let bearing = geolocate._heading || 0;
-        map.rotateTo(bearing, {
-            duration:100
-        });
+        // let bearing = geolocate._heading || 0;
+        // map.rotateTo(bearing, {
+        //     duration:100
+        // });
 
     }, 100);
 }
